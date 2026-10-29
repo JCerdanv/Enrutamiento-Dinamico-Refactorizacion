@@ -1,15 +1,22 @@
-// jncv (dia 13 src/index.ts) - Enrutamiento Dinámico y Refactorización
-// https://github.com/JCerdanv/Enrutamiento-Dinamico-Refactorizacion.git
-// http://localhost:3000/api/estudiantes
+// jncv (dia 14 src/index.ts) - - Documentacion Swagger UI: 
+// https://github.com/JCerdanv/????????????.git
+// http://localhost:3000/api-docs
+
 
 import express from "express";
 import estudiantesRouter from "./routes/estudiantes";
+
+import swaggerUi from 'swagger-ui-express';
+import swaggerOutput from '../swagger_output.json';
+
 
 const app = express();
 const PORT = 3000;
 
 // middleware normal para JSON
 app.use(express.json());
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerOutput));
 
 // Middleware para capturar errores de parseo de JSON (Exceptuando ...)
 app.use((err: any, req: any, res: any, next: any) => {
@@ -31,9 +38,9 @@ app.use((err: any, req: any, res: any, next: any) => {
 app.use("/api/estudiantes", estudiantesRouter);
 
 app.listen(PORT, () => {
-  console.log(`\ndia 13 - Enrutamiento Dinámico y Refactorización`);
-  console.log(`ThunderCliente http://localhost:3000/api/estudiantes`);
+  console.log(`\ndia 14 - Documentacion Swagger UI: `);
+  console.log(`http://localhost:3000/api-docs`);
   console.log(`Servidor corriendo en: http://localhost:${PORT}`);
 });
 
-// jncv fin (dia 13 src/index.ts) - Enrutamiento Dinámico y Refactorización
+// jncv fin (dia 14 src/index.ts) - Enrutamiento Dinámico y Refactorización
