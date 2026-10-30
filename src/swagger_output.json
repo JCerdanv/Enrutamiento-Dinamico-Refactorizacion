@@ -13,37 +13,90 @@
   "paths": {
     "/api/estudiantes/": {
       "get": {
-        "description": "",
+        "tags": [
+          "Estudiantes"
+        ],
+        "description": "Obtiene la lista de estudiantes",
         "parameters": [
           {
             "name": "bootcamp",
             "in": "query",
+            "description": "Nombre del bootcamp para filtrar",
+            "required": false,
             "type": "string"
           }
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Lista de estudiantes recuperada con éxito.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "ok": {
+                  "type": "boolean",
+                  "example": true
+                },
+                "total": {
+                  "type": "number",
+                  "example": 1
+                },
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "number",
+                        "example": 1
+                      },
+                      "nombre": {
+                        "type": "string",
+                        "example": "jesus cerdan"
+                      },
+                      "email": {
+                        "type": "string",
+                        "example": "inforperu@outlook.com"
+                      },
+                      "bootcamp": {
+                        "type": "string",
+                        "example": "TripleTen Perú"
+                      }
+                    }
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
           }
         }
       },
       "post": {
-        "description": "",
+        "tags": [
+          "Estudiantes"
+        ],
+        "description": "Crea un nuevo estudiante",
         "parameters": [
           {
             "name": "body",
             "in": "body",
+            "description": "Datos requeridos para registrar un estudiante",
+            "required": true,
             "schema": {
               "type": "object",
               "properties": {
                 "nombre": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "Juan Pérez"
                 },
                 "email": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "juan@mail.com"
                 },
                 "bootcamp": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "Fullstack"
                 }
               }
             }
@@ -51,73 +104,226 @@
         ],
         "responses": {
           "201": {
-            "description": "Created"
+            "description": "Estudiante registrado con éxito.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "ok": {
+                  "type": "boolean",
+                  "example": true
+                },
+                "mensaje": {
+                  "type": "string",
+                  "example": "Estudiante registrado con exito."
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "number",
+                      "example": 1
+                    },
+                    "nombre": {
+                      "type": "string",
+                      "example": "Juan Pérez"
+                    },
+                    "email": {
+                      "type": "string",
+                      "example": "juan@mail.com"
+                    },
+                    "bootcamp": {
+                      "type": "string",
+                      "example": "Fullstack"
+                    }
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
           },
           "400": {
-            "description": "Bad Request"
+            "description": "Error de validación o cuerpo vacío.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "ok": {
+                  "type": "boolean",
+                  "example": false
+                },
+                "mensaje": {
+                  "type": "string",
+                  "example": "Faltan campos obligatorios (nombre, email y bootcamp)."
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
           }
         }
       },
       "put": {
-        "description": "",
+        "tags": [
+          "Estudiantes"
+        ],
+        "description": "Punto de control para rechazar solicitudes PUT que no envían ID en la URL.",
         "responses": {
           "400": {
-            "description": "Bad Request"
+            "description": "Falta el parámetro ID.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "ok": {
+                  "type": "boolean",
+                  "example": false
+                },
+                "mensaje": {
+                  "type": "string",
+                  "example": "El parámetro ID en metodo PUT es obligatorio en la URL."
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
           }
         }
       },
       "delete": {
-        "description": "",
+        "tags": [
+          "Estudiantes"
+        ],
+        "description": "Punto de control para rechazar solicitudes DELETE que no envían ID en la URL.",
         "responses": {
           "400": {
-            "description": "Bad Request"
+            "description": "Falta el parámetro ID.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "ok": {
+                  "type": "boolean",
+                  "example": false
+                },
+                "mensaje": {
+                  "type": "string",
+                  "example": "El parámetro ID en metodo DELETE es obligatorio en la URL."
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
           }
         }
       }
     },
     "/api/estudiantes/{id}": {
       "get": {
-        "description": "",
+        "tags": [
+          "Estudiantes"
+        ],
+        "description": "Obtiene un estudiante por ID",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "number",
+            "description": "ID del estudiante"
           }
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Estudiante encontrado.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "ok": {
+                  "type": "boolean",
+                  "example": true
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "number",
+                      "example": 1
+                    },
+                    "nombre": {
+                      "type": "string",
+                      "example": "jesus cerdan"
+                    },
+                    "email": {
+                      "type": "string",
+                      "example": "inforperu@outlook.com"
+                    },
+                    "bootcamp": {
+                      "type": "string",
+                      "example": "TripleTen Perú"
+                    }
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
           },
           "404": {
-            "description": "Not Found"
+            "description": "El estudiante no existe.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "ok": {
+                  "type": "boolean",
+                  "example": false
+                },
+                "mensaje": {
+                  "type": "string",
+                  "example": "El estudiante con ID 1 no existe."
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
           }
         }
       },
       "put": {
-        "description": "",
+        "tags": [
+          "Estudiantes"
+        ],
+        "description": "Actualiza parcialmente o totalmente las propiedades de un estudiante.",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "number",
+            "description": "ID numérico del estudiante a actualizar"
           },
           {
             "name": "body",
             "in": "body",
+            "description": "Campos opcionales a modificar",
+            "required": false,
             "schema": {
               "type": "object",
               "properties": {
                 "nombre": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "Nombre Editado"
                 },
                 "email": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "nuevo@mail.com"
                 },
                 "bootcamp": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "Nuevo Bootcamp"
                 }
               }
             }
@@ -125,42 +331,196 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Estudiante actualizado con éxito.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "ok": {
+                  "type": "boolean",
+                  "example": true
+                },
+                "mensaje": {
+                  "type": "string",
+                  "example": "Estudiante actualizado con exito."
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "number",
+                      "example": 1
+                    },
+                    "nombre": {
+                      "type": "string",
+                      "example": "Nombre Editado"
+                    },
+                    "email": {
+                      "type": "string",
+                      "example": "nuevo@mail.com"
+                    },
+                    "bootcamp": {
+                      "type": "string",
+                      "example": "Nuevo Bootcamp"
+                    }
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
           },
           "400": {
-            "description": "Bad Request"
+            "description": "El ID enviado en la ruta no es un número válido.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "ok": {
+                  "type": "boolean",
+                  "example": false
+                },
+                "mensaje": {
+                  "type": "string",
+                  "example": "El ID en metodo PUT proporcionado debe ser un numero válido."
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
           },
           "404": {
-            "description": "Not Found"
+            "description": "No se encontró ningún estudiante con ese ID.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "ok": {
+                  "type": "boolean",
+                  "example": false
+                },
+                "mensaje": {
+                  "type": "string",
+                  "example": "El estudiante con ID en metodo PUT 99 no existe."
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
           }
         }
       },
       "delete": {
-        "description": "",
+        "tags": [
+          "Estudiantes"
+        ],
+        "description": "Elimina de manera permanente un estudiante según su ID.",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "number",
+            "description": "ID numérico del estudiante a eliminar"
           }
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Estudiante eliminado con éxito.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "ok": {
+                  "type": "boolean",
+                  "example": true
+                },
+                "mensaje": {
+                  "type": "string",
+                  "example": "Estudiante eliminado con exito."
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "number",
+                      "example": 1
+                    },
+                    "nombre": {
+                      "type": "string",
+                      "example": "jesus cerdan"
+                    },
+                    "email": {
+                      "type": "string",
+                      "example": "inforperu@outlook.com"
+                    },
+                    "bootcamp": {
+                      "type": "string",
+                      "example": "TripleTen Perú"
+                    }
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
           },
           "404": {
-            "description": "Not Found"
+            "description": "No se encontró ningún estudiante con ese ID.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "ok": {
+                  "type": "boolean",
+                  "example": false
+                },
+                "mensaje": {
+                  "type": "string",
+                  "example": "El estudiante con ID 99 no existe."
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
           }
         }
       }
     },
     "/api/estudiantes/agrega": {
       "post": {
-        "description": "",
+        "tags": [
+          "Estudiantes"
+        ],
+        "description": "Agrega una lista de estudiantes de manera masiva",
         "responses": {
           "201": {
-            "description": "Created"
+            "description": "Lista de estudiantes agregada con éxito.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "ok": {
+                  "type": "boolean",
+                  "example": true
+                },
+                "mensaje": {
+                  "type": "string",
+                  "example": "Lista de estudiantes agregada con exito."
+                },
+                "total": {
+                  "type": "number",
+                  "example": 7
+                },
+                "data": {
+                  "type": "array",
+                  "example": [],
+                  "items": {}
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
           }
         }
       }

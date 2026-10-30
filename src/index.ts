@@ -1,14 +1,14 @@
-// jncv (dia 14 src/index.ts) - - Documentacion Swagger UI: 
+// jncv (dia 14 archivo src/index.ts) - - Documentacion Swagger UI: 
 // https://github.com/JCerdanv/????????????.git
 // http://localhost:3000/api-docs
 
 
-import express from "express";
+// import express from "express";
+import express from 'express';
 import estudiantesRouter from "./routes/estudiantes";
 
 import swaggerUi from 'swagger-ui-express';
-import swaggerOutput from '../swagger_output.json';
-
+import swaggerOutput from './swagger_output.json';
 
 const app = express();
 const PORT = 3000;
@@ -21,7 +21,7 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerOutput));
 // Middleware para capturar errores de parseo de JSON (Exceptuando ...)
 app.use((err: any, req: any, res: any, next: any) => {
   // Si es GET DELETE POST si no continuamos
-  if (req.method === "GET" || req.method === "DELETE"|| req.method === "POST") {
+  if (req.method === 'GET' || req.method === 'DELETE' || req.method === 'POST') {
     return next();
   }
 
@@ -36,6 +36,8 @@ app.use((err: any, req: any, res: any, next: any) => {
 
 // Monta rutas bajo el prefijo /api/estudiantes
 app.use("/api/estudiantes", estudiantesRouter);
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerOutput));
 
 app.listen(PORT, () => {
   console.log(`\ndia 14 - Documentacion Swagger UI: `);

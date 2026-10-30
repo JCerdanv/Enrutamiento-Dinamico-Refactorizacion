@@ -1,6 +1,7 @@
-// jncv (dia 14 src/routes/estudiantes.ts) - 
+// jncv (dia 14 archivo src/routes/estudiantes.ts) - 
 // Documentacion Swagger UI:
-// https://github.com/JCerdanv/????????????.git
+// https://github.com/JCerdanv/Enrutamiento-Dinamico-Refactorizacion.git
+
 
 import { Router } from "express";
 import type { Request, Response } from "express";
